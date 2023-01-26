@@ -1,35 +1,52 @@
+function fToC(temp)
+{
+    temp = (temp-32)*(5/9);
+    return temp;
+
+}
+
+function cToF(temp)
+{
+    temp = (temp*1.8)+32;
+    return temp;
+}
+
+function printParagraph(text)
+{
+    document.getElementById("p1").innerText = text;
+}
+
 document.getElementById("myButton").onclick = function()
 {
-    const myCheckBox = document.getElementById("myCheckBox");
-    // if(myCheckBox.checked)
+    // see which radio box is checked. 
+    const Celsius = document.getElementById("celsius");
+    const Fahreneit = document.getElementById("fahreneit");
 
-    // {
-    //     document.getElementById("p1").innerHTML = "You are subscribed";
-    // }
-    // else
-    // {
-    //     document.getElementById("p1").innerHTML = "You are not subscribed";
-
-
-    // }
-
-    const visaBtn = document.getElementById("visaBtn");
-    const mastercardBtn = document.getElementById("masterCardBtn");
-    const paypalBtn = document.getElementById("paypalBtn");
-
-
-    if (visaBtn.checked)
+    temp = document.getElementById("myTemp").value; 
+    if (!temp)
     {
-        document.getElementById("p1").innerHTML = "You picked visa";
+        printParagraph("Please enter a temperature.")
+        return;
 
     }
-    else if (mastercardBtn.checked)
-    {
-        document.getElementById("p1").innerHTML = "You picked mastercard";
-    }
-    else if (paypalBtn.checked)
-    {
-        document.getElementById("p1").innerHTML = "You picked Paypal";
-    }
 
+    //check if radiobox is checked. 
+
+    if (Celsius.checked)
+    {
+        temp = Number(temp);
+        newTemp = fToC(temp);
+        printParagraph(newTemp + "Degree Celsius");
+    }
+    else if (Fahreneit.checked)
+    {
+        temp = Number(temp);
+        newTemp = cToF(temp);
+        printParagraph(newTemp + "Degree Fahreneit");
+
+    }
+    else
+    {
+        printParagraph("Please pick a button");
+    }
 }
