@@ -1,57 +1,65 @@
-const timeDisplay = document.querySelector("#timeDisplay");
-const startBtn = document.querySelector("#startBtn");
-const pauseBtn = document.querySelector("#pauseBtn");
-const resetBtn = document.querySelector("#resetBtn");
 
-let startTime = 0;
-let elapsedTime = 0;
-let currentTime = 0;
-let paused = true;
-let intervalId;
-let hrs = 0;
-let mins = 0;
-let secs = 0;
+const playerText = document.querySelector("#playerText");
+const computerText = document.querySelector("#computerText");
+const resultText = document.querySelector("#resultText");
 
-startBtn.addEventListener("click", () => {
-    if(paused){
-        paused = false;
-        startTime = Date.now() - elapsedTime;
-        intervalId = setInterval(updateTime, 1000);
+const choiceButtons = document.querySelectorAll(".choiceButton");
+
+let player;
+let computer;
+let result;
+
+choiceButtons.forEach(button => button.addEventListener("click" , () => {
+
+    console.log("I clicked a button");
+
+    player = button.textContent;
+    computerTurn();
+
+    playerText.textContent =  player;
+    computerText.textContent = computer;
+    resultText.textContent = checkWinner(player , computer);
+
+}));
+
+function computerTurn()
+{
+    //select a random number between 1 and 3. 
+    const randNum = Math.floor(Math.random()*3)+1;
+    
+    switch(randNum)
+    {
+        case 1: 
+          computer = "ROCK";
+          break;
+        case 2:
+            computer="PAPER";
+            break;
+        case 3:
+            computer="SCISSOR";
+            break;
     }
-});
-pauseBtn.addEventListener("click", () => {
-    if(!paused){
-        paused = true;
-        elapsedTime = Date.now() - startTime;
-        clearInterval(intervalId);
+
+}
+
+function checkWinner(player , computer)
+{
+    if (player==computer)
+    {
+        return "Draw";
     }
-});
-resetBtn.addEventListener("click", () => {
-    paused = true;
-    clearInterval(intervalId);
-    startTime = 0;
-    elapsedTime = 0;
-    currentTime = 0;
-    hrs = 0;
-    mins = 0;
-    secs = 0;
-    timeDisplay.textContent = "00:00:00";
-});
-
-function updateTime(){
-    elapsedTime = Date.now() - startTime;
-
-    secs = Math.floor((elapsedTime / 1000) % 60);
-    mins = Math.floor((elapsedTime / (1000 * 60)) % 60);
-    hrs = Math.floor((elapsedTime / (1000 * 60 * 60)) % 60);
-
-    secs = pad(secs);
-    mins = pad(mins);
-    hrs = pad(hrs);
-
-    timeDisplay.textContent = `${hrs}:${mins}:${secs}`;
-
-    function pad(unit){
-        return (("0") + unit).length > 2 ? unit : "0" + unit;
+    else if (computer == "ROCK")
+    {
+        return (player=="PAPER") ? "You Win!": "You Lose!"
     }
+    else if (computer == "PAPER")
+    {
+        return (player=="SCISSORS") ? "You Win!": "You Lose!"
+    }
+    else if (computer == "SCISSORS")
+    {
+        return (player=="ROCK") ? "You Win!": "You Lose!"
+    }
+
+
 }
