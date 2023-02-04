@@ -1,24 +1,29 @@
-//rest parameters. 
-// Packs arguments into an array
-
-
-let total = sum (2,3);
-
-sum (2 ,3 , displayOnDom)
-
-function sum (x ,y , callBack)
+async function loadFile()
 {
-    result = x+y;
-    callBack(result);
+    let loadFile=true;
+
+    if(fileLoaded)
+    {
+        return 'File loaded';
+
+    }
+    else
+    {
+        throw "File NOT Loaded";
+    }
 }
 
-function displayConsole(output)
+async function display()
 {
-    console.log(output);
+    try
+    {
+        document.getElementById("p1").innerHTML = await loadFile();
+
+    }
+    catch (error)
+    {
+        document.getElementById("p1").innerHTML = error;
+    }
 }
 
-function displayOnDom(output)
-{
-    document.getElementById("p1").innerHTML = output + "is the total sum";
-}
-//Need to add arrowfunction 
+display();
