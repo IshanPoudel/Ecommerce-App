@@ -1,9 +1,12 @@
-let fruits = document.getElementsByName("fruits");
+const innerDiv = document.getElementById("innerDiv");
+const outerDiv = document.getElementById("outerDiv");
 
-fruits.forEach(fruit =>
-    {
-        if (fruit.checked)
-        {
-            console.log(fruit.value);
-        }
-    });
+
+innerDiv.addEventListener("click" , changeBlue);
+outerDiv.addEventListener("click" , changeBlue , true);
+
+function changeBlue()
+{
+    
+    this.style.backgroundColor = "lightblue"
+}
